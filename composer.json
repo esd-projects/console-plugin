@@ -1,0 +1,22 @@
+{
+  "require": {
+    "symfony/console": "^4.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "GoSwoole\\BaseServer\\Plugins\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "tmtbe",
+      "email": "896369042@qq.com",
+      "homepage": "https://github.com/tmtbe"
+    }
+  ],
+  "name": "go-swoole/base-server",
+  "type": "library",
+  "keywords": ["go-swoole", "swoole","plugins"],
+  "description": "console-plugin",
+  "license": "MIT"
+}
