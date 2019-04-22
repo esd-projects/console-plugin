@@ -14,7 +14,7 @@
       "homepage": "https://github.com/tmtbe"
     }
   ],
-  "name": "go-swoole/base-server",
+  "name": "go-swoole/console-plugin",
   "type": "library",
   "keywords": ["go-swoole", "swoole","plugins"],
   "description": "console-plugin",
