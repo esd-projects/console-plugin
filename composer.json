@@ -1,6 +1,7 @@
 {
   "require": {
-    "symfony/console": "^4.2"
+    "symfony/console": "^4.2",
+    "go-swoole/base-server":"dev-master"
   },
   "autoload": {
     "psr-4": {

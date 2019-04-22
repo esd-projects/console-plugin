@@ -13,12 +13,12 @@ use GoSwoole\BaseServer\Plugins\Console\Command\RestartCmd;
 use GoSwoole\BaseServer\Plugins\Console\Command\StartCmd;
 use GoSwoole\BaseServer\Plugins\Console\Command\StopCmd;
 use GoSwoole\BaseServer\Server\Context;
-use GoSwoole\BaseServer\Server\PlugIn\AbstractPlug;
+use GoSwoole\BaseServer\Server\PlugIn\AbstractPlugin;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-class ConsolePlug extends AbstractPlug
+class ConsolePlug extends AbstractPlugin
 {
     const SUCCESS_EXIT = 0;
     const FAIL_EXIT = 1;
