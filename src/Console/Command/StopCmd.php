@@ -6,9 +6,9 @@
  * Time: 上午10:59
  */
 
-namespace GoSwoole\BaseServer\Plugins\Console\Command;
+namespace GoSwoole\Plugins\Console\Command;
 
-use GoSwoole\BaseServer\Plugins\Console\ConsolePlugin;
+use GoSwoole\Plugins\Console\ConsolePlugin;
 use GoSwoole\BaseServer\Server\Context;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

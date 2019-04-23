@@ -1,7 +1,7 @@
 <?php
 
 use GoSwoole\BaseServer\ExampleClass\Server\DefaultServer;
-use GoSwoole\BaseServer\Plugins\Console\ConsolePlugin;
+use GoSwoole\Plugins\Console\ConsolePlugin;
 use GoSwoole\BaseServer\Server\Config\PortConfig;
 use GoSwoole\BaseServer\Server\Config\ServerConfig;
 

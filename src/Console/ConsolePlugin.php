@@ -6,12 +6,12 @@
  * Time: 10:38
  */
 
-namespace GoSwoole\BaseServer\Plugins\Console;
+namespace GoSwoole\Plugins\Console;
 
-use GoSwoole\BaseServer\Plugins\Console\Command\ReloadCmd;
-use GoSwoole\BaseServer\Plugins\Console\Command\RestartCmd;
-use GoSwoole\BaseServer\Plugins\Console\Command\StartCmd;
-use GoSwoole\BaseServer\Plugins\Console\Command\StopCmd;
+use GoSwoole\Plugins\Console\Command\ReloadCmd;
+use GoSwoole\Plugins\Console\Command\RestartCmd;
+use GoSwoole\Plugins\Console\Command\StartCmd;
+use GoSwoole\Plugins\Console\Command\StopCmd;
 use GoSwoole\BaseServer\Server\Context;
 use GoSwoole\BaseServer\Server\PlugIn\AbstractPlugin;
 use Symfony\Component\Console\Application;
