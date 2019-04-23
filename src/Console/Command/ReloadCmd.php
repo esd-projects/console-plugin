@@ -8,7 +8,7 @@
 
 namespace GoSwoole\BaseServer\Plugins\Console\Command;
 
-use GoSwoole\BaseServer\Plugins\Console\ConsolePlug;
+use GoSwoole\BaseServer\Plugins\Console\ConsolePlugin;
 use GoSwoole\BaseServer\Server\Context;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -45,10 +45,10 @@ class ReloadCmd extends Command
         $manager_pid = exec("ps -ef | grep $server_name-manager | grep -v 'grep ' | awk '{print $2}'");
         if (empty($master_pid)) {
             $io->warning("server $server_name not run");
-            return ConsolePlug::SUCCESS_EXIT;
+            return ConsolePlugin::SUCCESS_EXIT;
         }
         posix_kill($manager_pid, SIGUSR1);
         $io->success("server $server_name reload");
-        return ConsolePlug::SUCCESS_EXIT;
+        return ConsolePlugin::SUCCESS_EXIT;
     }
 }

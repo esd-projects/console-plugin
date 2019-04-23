@@ -8,7 +8,7 @@
 
 namespace GoSwoole\BaseServer\Plugins\Console\Command;
 
-use GoSwoole\BaseServer\Plugins\Console\ConsolePlug;
+use GoSwoole\BaseServer\Plugins\Console\ConsolePlugin;
 use GoSwoole\BaseServer\Server\Context;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -54,10 +54,10 @@ class RestartCmd extends Command
         );
         $greetInput = new ArrayInput($arguments);
         $code = $command->run($greetInput, $output);
-        if ($code == ConsolePlug::FAIL_EXIT) {
-            return ConsolePlug::FAIL_EXIT;
+        if ($code == ConsolePlugin::FAIL_EXIT) {
+            return ConsolePlugin::FAIL_EXIT;
         }
         $serverConfig->setDaemonize(true);
-        return ConsolePlug::NOEXIT;
+        return ConsolePlugin::NOEXIT;
     }
 }

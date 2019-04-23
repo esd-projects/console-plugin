@@ -8,7 +8,7 @@
 
 namespace GoSwoole\BaseServer\Plugins\Console\Command;
 
-use GoSwoole\BaseServer\Plugins\Console\ConsolePlug;
+use GoSwoole\BaseServer\Plugins\Console\ConsolePlugin;
 use GoSwoole\BaseServer\Server\Context;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -47,7 +47,7 @@ class StartCmd extends Command
         $master_pid = exec("ps -ef | grep $server_name-master | grep -v 'grep ' | awk '{print $2}'");
         if (!empty($master_pid)) {
             $io->warning("server $server_name is running");
-            return ConsolePlug::SUCCESS_EXIT;
+            return ConsolePlugin::SUCCESS_EXIT;
         }
         //是否是守护进程
         if ($input->getOption('daemonize')) {
@@ -57,6 +57,6 @@ class StartCmd extends Command
         } else {
             $io->note("Press Ctrl-C to quit. Start success.");
         }
-        return ConsolePlug::NOEXIT;
+        return ConsolePlugin::NOEXIT;
     }
 }

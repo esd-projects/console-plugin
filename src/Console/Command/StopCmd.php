@@ -8,7 +8,7 @@
 
 namespace GoSwoole\BaseServer\Plugins\Console\Command;
 
-use GoSwoole\BaseServer\Plugins\Console\ConsolePlug;
+use GoSwoole\BaseServer\Plugins\Console\ConsolePlugin;
 use GoSwoole\BaseServer\Server\Context;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -47,7 +47,7 @@ class StopCmd extends Command
         $master_pid = exec("ps -ef | grep $server_name-master | grep -v 'grep ' | awk '{print $2}'");
         if (empty($master_pid)) {
             $io->warning("server $server_name not run");
-            return ConsolePlug::SUCCESS_EXIT;
+            return ConsolePlugin::SUCCESS_EXIT;
         }
         if ($input->getOption('kill')) {
             $result = $io->confirm("Kill the $server_name server?", false);
@@ -56,11 +56,11 @@ class StopCmd extends Command
         }
         if (!$result) {
             $io->warning("Cancel by user");
-            return ConsolePlug::SUCCESS_EXIT;
+            return ConsolePlugin::SUCCESS_EXIT;
         }
         if ($input->getOption('kill')) {//kill -9
             exec("ps -ef|grep $server_name|grep -v grep|cut -c 9-15|xargs kill -9");
-            return ConsolePlug::SUCCESS_EXIT;
+            return ConsolePlugin::SUCCESS_EXIT;
         }
         // Send stop signal to master process.
         $master_pid && posix_kill($master_pid, SIGTERM);
@@ -74,7 +74,7 @@ class StopCmd extends Command
                 // Timeout?
                 if (time() - $start_time >= $timeout) {
                     $io->warning("server $server_name stop fail");
-                    return ConsolePlug::FAIL_EXIT;
+                    return ConsolePlugin::FAIL_EXIT;
                 }
                 // Waiting amoment.
                 usleep(10000);
@@ -84,6 +84,6 @@ class StopCmd extends Command
             $io->success("server $server_name stop success");
             break;
         }
-        return ConsolePlug::SUCCESS_EXIT;
+        return ConsolePlugin::SUCCESS_EXIT;
     }
 }

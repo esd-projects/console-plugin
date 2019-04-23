@@ -18,7 +18,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-class ConsolePlug extends AbstractPlugin
+class ConsolePlugin extends AbstractPlugin
 {
     const SUCCESS_EXIT = 0;
     const FAIL_EXIT = 1;
