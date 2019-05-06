@@ -8,13 +8,14 @@
 
 namespace GoSwoole\Plugins\Console;
 
+use GoSwoole\BaseServer\Server\Context;
+use GoSwoole\BaseServer\Server\PlugIn\AbstractPlugin;
 use GoSwoole\Plugins\Console\Command\ReloadCmd;
 use GoSwoole\Plugins\Console\Command\RestartCmd;
 use GoSwoole\Plugins\Console\Command\StartCmd;
 use GoSwoole\Plugins\Console\Command\StopCmd;
-use GoSwoole\BaseServer\Server\Context;
-use GoSwoole\BaseServer\Server\PlugIn\AbstractPlugin;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -29,6 +30,11 @@ class ConsolePlugin extends AbstractPlugin
     private $application;
 
     /**
+     * @var ConsoleConfig
+     */
+    private $config;
+
+    /**
      * 获取插件名字
      * @return string
      */
@@ -37,9 +43,18 @@ class ConsolePlugin extends AbstractPlugin
         return "Console";
     }
 
-    public function __construct()
+    /**
+     * ConsolePlugin constructor.
+     * @param ConsoleConfig|null $config
+     * @throws \ReflectionException
+     */
+    public function __construct(?ConsoleConfig $config = null)
     {
         parent::__construct();
+        if ($config == null) {
+            $config = new ConsoleConfig();
+        }
+        $this->config = $config;
         $this->application = new Application("GO-SWOOLE");
         $this->application->setAutoExit(false);
     }
@@ -54,12 +69,19 @@ class ConsolePlugin extends AbstractPlugin
     {
         $input = new ArgvInput();
         $output = new ConsoleOutput();
-        $this->application->addCommands([
-            new StartCmd($context),
-            new StopCmd($context),
-            new ReloadCmd($context),
-            new RestartCmd($context)
-        ]);
+        $this->config->addCmdClass(ReloadCmd::class);
+        $this->config->addCmdClass(RestartCmd::class);
+        $this->config->addCmdClass(StartCmd::class);
+        $this->config->addCmdClass(StopCmd::class);
+        $this->config->merge();
+        $cmds = [];
+        foreach ($this->config->getCmdClassList() as $value) {
+            $cmd = new $value($context);
+            if ($cmd instanceof Command) {
+                $cmds[$cmd->getName()] = $cmd;
+            }
+        }
+        $this->application->addCommands($cmds);
         $exitCode = $this->application->run($input, $output);
         if ($exitCode >= 0) {
             exit();
