@@ -84,6 +84,7 @@ class ConsolePlugin extends AbstractPlugin
         $this->application->addCommands($cmds);
         $exitCode = $this->application->run($input, $output);
         if ($exitCode >= 0) {
+            \swoole_event_exit();
             exit();
         }
     }
