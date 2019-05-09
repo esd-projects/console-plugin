@@ -42,7 +42,8 @@ class ConsoleConfig extends BaseConfig
 
     public function addCmdClass(string $className): void
     {
-        $this->cmdClassList[$className] = $className;
+        $list = explode("\\",$className);
+        $this->cmdClassList[$list[count($list)-1]] = $className;
     }
 
 }
