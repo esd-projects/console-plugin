@@ -8,9 +8,11 @@
 
 namespace GoSwoole\Plugins\Console\Command;
 
+use GoSwoole\BaseServer\Server\Server;
 use GoSwoole\Plugins\Console\ConsolePlugin;
 use GoSwoole\BaseServer\Server\Context;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,8 +39,15 @@ class StartCmd extends Command
     {
         $this->setName('start')->setDescription("Start server");
         $this->addOption('daemonize', "d", InputOption::VALUE_NONE, 'Who do you want daemonize?');
+        $this->addArgument('clearCache', InputArgument::OPTIONAL, 'Who do you want to clear cache?',"true");
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null
+     * @throws \GoSwoole\BaseServer\Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
@@ -48,6 +57,19 @@ class StartCmd extends Command
         if (!empty($master_pid)) {
             $io->warning("server $server_name is running");
             return ConsolePlugin::SUCCESS_EXIT;
+        }
+        $clearCache = strtolower($input->getArgument('clearCache'));
+        if ($clearCache=="true"||$clearCache=="clear") {
+            $serverConfig = Server::$instance->getServerConfig();
+            if(file_exists($serverConfig->getCacheDir()."/aop")) {
+                clearDir($serverConfig->getCacheDir() . "/aop");
+            }
+            if(file_exists($serverConfig->getCacheDir()."/di")) {
+                clearDir($serverConfig->getCacheDir() . "/di");
+            }
+            if(file_exists($serverConfig->getCacheDir()."/proxies")) {
+                clearDir($serverConfig->getCacheDir() . "/proxies");
+            }
         }
         //是否是守护进程
         if ($input->getOption('daemonize')) {
