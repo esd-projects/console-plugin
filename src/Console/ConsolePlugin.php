@@ -6,14 +6,14 @@
  * Time: 10:38
  */
 
-namespace GoSwoole\Plugins\Console;
+namespace ESD\Plugins\Console;
 
-use GoSwoole\BaseServer\Server\Context;
-use GoSwoole\BaseServer\Server\PlugIn\AbstractPlugin;
-use GoSwoole\Plugins\Console\Command\ReloadCmd;
-use GoSwoole\Plugins\Console\Command\RestartCmd;
-use GoSwoole\Plugins\Console\Command\StartCmd;
-use GoSwoole\Plugins\Console\Command\StopCmd;
+use ESD\BaseServer\Server\Context;
+use ESD\BaseServer\Server\PlugIn\AbstractPlugin;
+use ESD\Plugins\Console\Command\ReloadCmd;
+use ESD\Plugins\Console\Command\RestartCmd;
+use ESD\Plugins\Console\Command\StartCmd;
+use ESD\Plugins\Console\Command\StopCmd;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;

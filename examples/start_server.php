@@ -1,18 +1,18 @@
 <?php
 
-use GoSwoole\BaseServer\ExampleClass\Server\DefaultServer;
-use GoSwoole\Plugins\Console\ConsolePlugin;
-use GoSwoole\BaseServer\Server\Config\PortConfig;
-use GoSwoole\BaseServer\Server\Config\ServerConfig;
+use ESD\BaseServer\ExampleClass\Server\DefaultServer;
+use ESD\BaseServer\Server\Config\PortConfig;
+use ESD\BaseServer\Server\Config\ServerConfig;
+use ESD\Plugins\Console\ConsolePlugin;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-class MyPort extends \GoSwoole\BaseServer\ExampleClass\Server\DefaultServerPort
+class MyPort extends \ESD\BaseServer\ExampleClass\Server\DefaultServerPort
 {
 
 }
 
-class MyProcess extends \GoSwoole\BaseServer\ExampleClass\Server\DefaultProcess
+class MyProcess extends \ESD\BaseServer\ExampleClass\Server\DefaultProcess
 {
 
 }

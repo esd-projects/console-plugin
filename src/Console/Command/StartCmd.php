@@ -6,11 +6,11 @@
  * Time: 上午10:59
  */
 
-namespace GoSwoole\Plugins\Console\Command;
+namespace ESD\Plugins\Console\Command;
 
-use GoSwoole\BaseServer\Server\Server;
-use GoSwoole\Plugins\Console\ConsolePlugin;
-use GoSwoole\BaseServer\Server\Context;
+use ESD\BaseServer\Server\Context;
+use ESD\BaseServer\Server\Server;
+use ESD\Plugins\Console\ConsolePlugin;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,7 +46,7 @@ class StartCmd extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null
-     * @throws \GoSwoole\BaseServer\Exception
+     * @throws \ESD\BaseServer\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

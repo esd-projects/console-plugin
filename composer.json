@@ -1,11 +1,11 @@
 {
   "require": {
     "symfony/console": "^4.2",
-    "go-swoole/base-server":"~0.1"
+    "esd/base-server": "~0.1"
   },
   "autoload": {
     "psr-4": {
-      "GoSwoole\\Plugins\\": "src/"
+      "ESD\\Plugins\\": "src/"
     }
   },
   "authors": [
@@ -15,9 +15,13 @@
       "homepage": "https://github.com/tmtbe"
     }
   ],
-  "name": "go-swoole/console-plugin",
+  "name": "esd/console-plugin",
   "type": "library",
-  "keywords": ["go-swoole", "swoole","plugins"],
+  "keywords": [
+    "esd",
+    "swoole",
+    "plugins"
+  ],
   "description": "console-plugin",
   "license": "MIT"
 }

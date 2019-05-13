@@ -6,10 +6,10 @@
  * Time: 15:59
  */
 
-namespace GoSwoole\Plugins\Console;
+namespace ESD\Plugins\Console;
 
 
-use GoSwoole\BaseServer\Plugins\Config\BaseConfig;
+use ESD\BaseServer\Plugins\Config\BaseConfig;
 
 class ConsoleConfig extends BaseConfig
 {
