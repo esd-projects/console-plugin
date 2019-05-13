@@ -58,14 +58,15 @@ class StartCmd extends Command
             return ConsolePlugin::SUCCESS_EXIT;
         }
         if ($input->getOption('clearCache')) {
+            $io->note("清除缓存文件");
             $serverConfig = Server::$instance->getServerConfig();
-            if(file_exists($serverConfig->getCacheDir()."/aop")) {
+            if (file_exists($serverConfig->getCacheDir() . "/aop")) {
                 clearDir($serverConfig->getCacheDir() . "/aop");
             }
-            if(file_exists($serverConfig->getCacheDir()."/di")) {
+            if (file_exists($serverConfig->getCacheDir() . "/di")) {
                 clearDir($serverConfig->getCacheDir() . "/di");
             }
-            if(file_exists($serverConfig->getCacheDir()."/proxies")) {
+            if (file_exists($serverConfig->getCacheDir() . "/proxies")) {
                 clearDir($serverConfig->getCacheDir() . "/proxies");
             }
         }

@@ -9,10 +9,12 @@
 namespace ESD\Plugins\Console\Command;
 
 use ESD\BaseServer\Server\Context;
+use ESD\BaseServer\Server\Server;
 use ESD\Plugins\Console\ConsolePlugin;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -36,6 +38,7 @@ class RestartCmd extends Command
     protected function configure()
     {
         $this->setName('restart')->setDescription("Restart server");
+        $this->addOption('clearCache', "c", InputOption::VALUE_NONE, 'Who do you want to clear cache?');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -46,7 +49,7 @@ class RestartCmd extends Command
         $master_pid = exec("ps -ef | grep $server_name-master | grep -v 'grep ' | awk '{print $2}'");
         if (empty($master_pid)) {
             $io->warning("$server_name server not running");
-            return;
+            return ConsolePlugin::SUCCESS_EXIT;
         }
         $command = $this->getApplication()->find('stop');
         $arguments = array(
@@ -56,6 +59,19 @@ class RestartCmd extends Command
         $code = $command->run($greetInput, $output);
         if ($code == ConsolePlugin::FAIL_EXIT) {
             return ConsolePlugin::FAIL_EXIT;
+        }
+        if ($input->getOption('clearCache')) {
+            $io->note("清除缓存文件");
+            $serverConfig = Server::$instance->getServerConfig();
+            if (file_exists($serverConfig->getCacheDir() . "/aop")) {
+                clearDir($serverConfig->getCacheDir() . "/aop");
+            }
+            if (file_exists($serverConfig->getCacheDir() . "/di")) {
+                clearDir($serverConfig->getCacheDir() . "/di");
+            }
+            if (file_exists($serverConfig->getCacheDir() . "/proxies")) {
+                clearDir($serverConfig->getCacheDir() . "/proxies");
+            }
         }
         $serverConfig->setDaemonize(true);
         return ConsolePlugin::NOEXIT;
