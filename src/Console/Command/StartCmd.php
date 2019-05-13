@@ -12,7 +12,6 @@ use ESD\BaseServer\Server\Context;
 use ESD\BaseServer\Server\Server;
 use ESD\Plugins\Console\ConsolePlugin;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,7 +38,7 @@ class StartCmd extends Command
     {
         $this->setName('start')->setDescription("Start server");
         $this->addOption('daemonize', "d", InputOption::VALUE_NONE, 'Who do you want daemonize?');
-        $this->addArgument('clearCache', InputArgument::OPTIONAL, 'Who do you want to clear cache?',"true");
+        $this->addOption('clearCache', "c", InputOption::VALUE_NONE, 'Who do you want to clear cache?');
     }
 
     /**
@@ -58,8 +57,7 @@ class StartCmd extends Command
             $io->warning("server $server_name is running");
             return ConsolePlugin::SUCCESS_EXIT;
         }
-        $clearCache = strtolower($input->getArgument('clearCache'));
-        if ($clearCache=="true"||$clearCache=="clear") {
+        if ($input->getOption('clearCache')) {
             $serverConfig = Server::$instance->getServerConfig();
             if(file_exists($serverConfig->getCacheDir()."/aop")) {
                 clearDir($serverConfig->getCacheDir() . "/aop");
