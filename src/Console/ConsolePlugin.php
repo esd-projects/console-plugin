@@ -8,8 +8,8 @@
 
 namespace ESD\Plugins\Console;
 
-use ESD\BaseServer\Server\Context;
-use ESD\BaseServer\Server\PlugIn\AbstractPlugin;
+use ESD\Core\Context\Context;
+use ESD\Core\PlugIn\AbstractPlugin;
 use ESD\Plugins\Console\Command\ReloadCmd;
 use ESD\Plugins\Console\Command\RestartCmd;
 use ESD\Plugins\Console\Command\StartCmd;
@@ -46,6 +46,8 @@ class ConsolePlugin extends AbstractPlugin
     /**
      * ConsolePlugin constructor.
      * @param ConsoleConfig|null $config
+     * @throws \DI\DependencyException
+     * @throws \DI\NotFoundException
      * @throws \ReflectionException
      */
     public function __construct(?ConsoleConfig $config = null)

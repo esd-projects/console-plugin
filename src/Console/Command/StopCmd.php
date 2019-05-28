@@ -8,8 +8,9 @@
 
 namespace ESD\Plugins\Console\Command;
 
-use ESD\BaseServer\Server\Context;
+use ESD\Core\Context\Context;
 use ESD\Plugins\Console\ConsolePlugin;
+use ESD\Server\Co\Server;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -42,7 +43,7 @@ class StopCmd extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $serverConfig = $this->context->getServer()->getServerConfig();
+        $serverConfig = Server::$instance->getServerConfig();
         $server_name = $serverConfig->getName();
         $master_pid = exec("ps -ef | grep $server_name-master | grep -v 'grep ' | awk '{print $2}'");
         if (empty($master_pid)) {

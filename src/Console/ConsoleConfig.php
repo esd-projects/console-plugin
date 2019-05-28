@@ -8,8 +8,7 @@
 
 namespace ESD\Plugins\Console;
 
-
-use ESD\BaseServer\Plugins\Config\BaseConfig;
+use ESD\Core\Plugins\Config\BaseConfig;
 
 class ConsoleConfig extends BaseConfig
 {
@@ -42,8 +41,8 @@ class ConsoleConfig extends BaseConfig
 
     public function addCmdClass(string $className): void
     {
-        $list = explode("\\",$className);
-        $this->cmdClassList[$list[count($list)-1]] = $className;
+        $list = explode("\\", $className);
+        $this->cmdClassList[$list[count($list) - 1]] = $className;
     }
 
 }

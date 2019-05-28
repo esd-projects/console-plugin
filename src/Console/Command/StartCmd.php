@@ -8,9 +8,9 @@
 
 namespace ESD\Plugins\Console\Command;
 
-use ESD\BaseServer\Server\Context;
-use ESD\BaseServer\Server\Server;
+use ESD\Core\Context\Context;
 use ESD\Plugins\Console\ConsolePlugin;
+use ESD\Server\Co\Server;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -45,12 +45,12 @@ class StartCmd extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null
-     * @throws \ESD\BaseServer\Exception
+     * @throws \ESD\Core\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $serverConfig = $this->context->getServer()->getServerConfig();
+        $serverConfig = Server::$instance->getServerConfig();
         $server_name = $serverConfig->getName();
         $master_pid = exec("ps -ef | grep $server_name-master | grep -v 'grep ' | awk '{print $2}'");
         if (!empty($master_pid)) {
@@ -72,7 +72,7 @@ class StartCmd extends Command
         }
         //是否是守护进程
         if ($input->getOption('daemonize')) {
-            $serverConfig = $this->context->getServer()->getServerConfig();
+            $serverConfig = Server::$instance->getServerConfig();
             $serverConfig->setDaemonize(true);
             $io->note("Input php Start.php stop to quit. Start success.");
         } else {
