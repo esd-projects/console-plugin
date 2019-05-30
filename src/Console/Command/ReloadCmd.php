@@ -43,7 +43,8 @@ class ReloadCmd extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $server_name = $this->config['name'] ?? 'SWD';
+        $serverConfig = Server::$instance->getServerConfig();
+        $server_name = $serverConfig->getName();
         $master_pid = exec("ps -ef | grep $server_name-master | grep -v 'grep ' | awk '{print $2}'");
         $manager_pid = exec("ps -ef | grep $server_name-manager | grep -v 'grep ' | awk '{print $2}'");
         if (empty($master_pid)) {
