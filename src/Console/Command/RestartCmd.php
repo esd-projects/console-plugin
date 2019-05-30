@@ -10,7 +10,7 @@ namespace ESD\Plugins\Console\Command;
 
 use ESD\Core\Context\Context;
 use ESD\Plugins\Console\ConsolePlugin;
-use ESD\Server\Co\Server;
+use ESD\Core\Server\Server;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
