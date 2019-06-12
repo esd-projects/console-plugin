@@ -61,14 +61,9 @@ class ConsolePlugin extends AbstractPlugin
         $this->application->setAutoExit(false);
     }
 
-    /**
-     * 在服务启动前
-     * @param Context $context
-     * @return mixed
-     * @throws \Exception
-     */
-    public function beforeServerStart(Context $context)
+    public function init(Context $context)
     {
+        parent::init($context);
         $input = new ArgvInput();
         $output = new ConsoleOutput();
         $this->config->addCmdClass(ReloadCmd::class);
@@ -89,6 +84,17 @@ class ConsolePlugin extends AbstractPlugin
             \swoole_event_exit();
             exit();
         }
+    }
+
+    /**
+     * 在服务启动前
+     * @param Context $context
+     * @return mixed
+     * @throws \Exception
+     */
+    public function beforeServerStart(Context $context)
+    {
+        return;
     }
 
     /**
