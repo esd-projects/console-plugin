@@ -57,7 +57,7 @@ class ConsolePlugin extends AbstractPlugin
             $config = new ConsoleConfig();
         }
         $this->config = $config;
-        $this->application = new Application("GO-SWOOLE");
+        $this->application = new Application("EasySwooleDistributed");
         $this->application->setAutoExit(false);
     }
 
