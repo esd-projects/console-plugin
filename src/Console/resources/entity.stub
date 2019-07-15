@@ -3,14 +3,13 @@ namespace {= namespace};
 
 use ESD\Plugins\Validate\Annotation\Filter;
 use ESD\Plugins\Validate\Annotation\Validated;
-use ESD\Plugins\Console\Model\GoModel;
 
 /**
  * {= tableComment}
  *
  * Class {= entityName}
  */
-class {= entityName} extends GoModel
+class {= entityName} extends {= extendClass}
 {
 
 {= properties | raw }

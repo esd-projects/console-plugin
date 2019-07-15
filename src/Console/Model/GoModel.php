@@ -63,6 +63,7 @@ abstract class GoModel extends Validation implements TracingInterface
 
     /**
      * @param $array
+     * @throws \ReflectionException
      */
     public function load ($array) {
         if (empty($array)) return;

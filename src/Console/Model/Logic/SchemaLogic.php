@@ -4,30 +4,36 @@ namespace ESD\Plugins\Console\Model\Logic;
 use ESD\Plugins\Console\FileGen;
 use ESD\Plugins\Console\Model\Dao\SchemaDao;
 use ESD\Core\Exception;
-use phpDocumentor\Reflection\Types\String_;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SchemaLogic
 {
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
     /**
      * @var SchemaDao
      */
     protected $schemaDao;
-
+    /**
+     * @var SymfonyStyle
+     */
+    protected $io;
     /**
      * SchemaLogic constructor.
      * @param string $pool
+     * @param SymfonyStyle $io
      * @throws \ESD\Plugins\Mysql\MysqlException
      * @throws \ReflectionException
      */
-    public function __construct(string $pool)
+    public function __construct(string $pool, SymfonyStyle $io)
     {
         $this->schemaDao = new SchemaDao($pool);
+        $this->io = $io;
     }
-
     public function alias ($alias) {
+        if (strpos($alias, '@app') === 0) {
+            return str_replace('@app', ROOT_DIR . '/src', $alias);
+        }
         if (strpos($alias, '@elite') === 0) {
             return str_replace('@elite', ROOT_DIR . '/src', $alias);
         }
@@ -44,26 +50,30 @@ class SchemaLogic
      * @param string $path
      * @param string $template
      * @param array $tables
+     * @param string $extendClass
+     * @param bool $confirm
      * @throws Exception
-     * @throws \Exception
      */
-    public function create ($path = '', $template = '', array $tables = []) {
+    public function create ($path = '', $template = '', array $tables = [], string $extendClass = '', $confirm = false) {
         $template = $this->alias($template);
         if (!is_dir($template)) {
             throw new Exception("Template[{$template}] not found");
         }
-        if (strpos($path, '@elite/') === 0) {
-            $namespace = str_replace('/', '\\', str_replace('@elite', 'Elite', $path));
+        if ($path{0} === '@') {
+            $namespace = ucfirst(substr($path, 1));
+            $namespace = str_replace('/', '\\', $namespace);
         } else {
-            $namespace = 'Elite\\Common\\Model\\Entity';
+            $namespace = 'App\\Model\\Entity';
         }
         $path = $this->alias($path);
         if (!is_dir($path)) mkdir($path, 0777, true);
         $tables = $this->schemaDao->getTableSchema($tables);
         foreach ($tables as $table) {
-            $this->generateEntity($path, $template, $table, $namespace);
-            die;
+            if ($confirm || $this->io->confirm("Generate table {$table['name']}?", true)) {
+                $this->generateEntity($path, $template, $table, $namespace, $extendClass);
+            }
         }
+        $this->io->success('Done!');
     }
 
     /**
@@ -71,10 +81,11 @@ class SchemaLogic
      * @param string $template
      * @param array $table
      * @param string $namespace
+     * @param string $extendClass
      * @return string
      * @throws \Exception
      */
-    public function generateEntity (string $path, string $template, array $table, string $namespace) {
+    public function generateEntity (string $path, string $template, array $table, string $namespace, string $extendClass) {
         $columnSchemas = $this->schemaDao->getColumnSchema($table['name']);
         $genProperties = [];
         $genTranslates = [];
@@ -92,6 +103,7 @@ class SchemaLogic
         $data = [
             'entityName' => $entityName,
             'namespace' => $namespace,
+            'extendClass' => $extendClass,
             'tableComment' => $table['comment'],
             'tableName' => $tableName,
             'primaryKey' => $primary,
@@ -102,7 +114,6 @@ class SchemaLogic
 //        return $gen->render($data);
         return $gen->renderAs($file, $data);
     }
-
     /**
      * @param $columnSchema
      * @param $template
