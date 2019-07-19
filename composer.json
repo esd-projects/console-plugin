@@ -1,7 +1,8 @@
 {
   "require": {
     "symfony/console": "^4.2",
-    "esd/esd-core": "~0.1"
+    "esd/esd-core": "~0.1",
+    "text/template": "~2.3"
   },
   "require-dev": {
     "esd/esd-co-server": "~0.1"

@@ -35,7 +35,7 @@ class EntityCmd extends Command
         $this->addOption('table', 't', InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY, 'database table name?', []);
         $this->addOption('path', null, InputOption::VALUE_OPTIONAL, 'generate entity file path?', '@app/Model/Entity');
         $this->addOption('template', null, InputOption::VALUE_OPTIONAL, 'generate entity template path?', '@devtool/resources');
-        $this->addOption('extend', null, InputOption::VALUE_OPTIONAL, 'generate extend class?', '\\ESD\\Go\\GoModel');
+        $this->addOption('extend', null, InputOption::VALUE_OPTIONAL, 'generate extend class?', '\\ESD\\Plugins\\Console\\Model\\GoModel');
         $this->addOption('confirm', 'y', InputOption::VALUE_NONE, 'confirm execution?');
     }
     /**
