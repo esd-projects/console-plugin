@@ -1,4 +1,4 @@
-# devtool-plugin
+# console-plugin
 esd-projects 插件，支持生成实体类
 
 ```$xslt
