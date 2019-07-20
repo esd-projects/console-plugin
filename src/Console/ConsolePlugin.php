@@ -10,6 +10,7 @@ namespace ESD\Plugins\Console;
 
 use ESD\Core\Context\Context;
 use ESD\Core\PlugIn\AbstractPlugin;
+use ESD\Plugins\Console\Command\EntityCmd;
 use ESD\Plugins\Console\Command\ReloadCmd;
 use ESD\Plugins\Console\Command\RestartCmd;
 use ESD\Plugins\Console\Command\StartCmd;
@@ -70,6 +71,7 @@ class ConsolePlugin extends AbstractPlugin
         $this->config->addCmdClass(RestartCmd::class);
         $this->config->addCmdClass(StartCmd::class);
         $this->config->addCmdClass(StopCmd::class);
+        $this->config->addCmdClass(EntityCmd::class);
         $this->config->merge();
         $cmds = [];
         foreach ($this->config->getCmdClassList() as $value) {
