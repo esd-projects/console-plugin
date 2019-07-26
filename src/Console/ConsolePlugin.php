@@ -65,6 +65,7 @@ class ConsolePlugin extends AbstractPlugin
     public function init(Context $context)
     {
         parent::init($context);
+        enableRuntimeCoroutine(false);
         $input = new ArgvInput();
         $output = new ConsoleOutput();
         $this->config->addCmdClass(ReloadCmd::class);
@@ -86,6 +87,7 @@ class ConsolePlugin extends AbstractPlugin
             \swoole_event_exit();
             exit();
         }
+        enableRuntimeCoroutine();
     }
 
     /**
