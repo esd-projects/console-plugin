@@ -5,7 +5,8 @@
     "text/template": "~2.3"
   },
   "require-dev": {
-    "esd/esd-co-server": "~0.1"
+    "esd/esd-co-server": "~0.1",
+    "esd/mysql-plugin": "~0.1"
   },
   "autoload": {
     "psr-4": {
